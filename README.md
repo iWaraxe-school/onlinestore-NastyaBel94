@@ -1,5 +1,5 @@
 ## 0. Intro
-
+Hello WORLD
 While going through this training you will develop console `online store`. Each next task will append some functionality or flexibility to it; 
 
 Each task has a description and materials, it doesn't mean that you should read this or only this materials,
