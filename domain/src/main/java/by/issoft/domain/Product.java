@@ -9,6 +9,18 @@ public class Product {
        return name;
    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRate(Integer rate) {
+        this.rate = rate;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
     public Integer getRate() {
         return rate;
     }
@@ -16,4 +28,6 @@ public class Product {
     public Integer getPrice() {
         return price;
     }
-}
+
+    }
+
