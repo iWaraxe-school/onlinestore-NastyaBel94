@@ -4,8 +4,10 @@ import by.issoft.domain.Category;
 import by.issoft.domain.Product;
 import com.github.javafaker.Faker;
 import org.reflections.Reflections;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
+
 import static org.reflections.scanners.Scanners.SubTypes;
 
 public class RandomStorePopulator {

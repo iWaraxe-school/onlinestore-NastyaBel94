@@ -7,6 +7,4 @@ public class BookCategory extends Category {
         super("Book");
     }
 
-
-
 }

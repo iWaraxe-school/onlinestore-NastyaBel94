@@ -9,6 +9,4 @@ public class ArtistCategory extends Category {
         super("Artist");
     }
 
-
-
 }

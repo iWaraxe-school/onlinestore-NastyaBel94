@@ -6,5 +6,5 @@ import by.issoft.domain.Category;
 public class AnimalCategory extends Category {
     public AnimalCategory() {
         super("Animal");
-         }
-  }
+    }
+}

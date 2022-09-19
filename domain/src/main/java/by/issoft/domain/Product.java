@@ -1,13 +1,13 @@
 package by.issoft.domain;
 
 public class Product {
-   private String name;
-   private Integer rate;
-   private Integer price;
+    private String name;
+    private Integer rate;
+    private Integer price;
 
-   public String getName() {
-       return name;
-   }
+    public String getName() {
+        return name;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -29,5 +29,4 @@ public class Product {
         return price;
     }
 
-    }
-
+}
