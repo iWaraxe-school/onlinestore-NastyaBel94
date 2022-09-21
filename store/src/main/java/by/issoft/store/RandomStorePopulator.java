@@ -14,7 +14,7 @@ public class RandomStorePopulator {
 
     private static Faker faker = new Faker();
 
-    public static void FillStoreRandomly(Store store) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public static void fillStoreRandomly(Store store) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Reflections reflections = new Reflections("by.issoft.domain");
         Set<Class<?>> subTypes = reflections.get(SubTypes.of(Category.class).asClass());
 
@@ -24,10 +24,27 @@ public class RandomStorePopulator {
 
             for (int i = faker.number().numberBetween(1, 10); i > 0; --i) {
                 Product product = new Product();
-                product.setName(faker.name().name());
+
+                String productName;
+                switch (category.getName()) {
+                    case "Book":
+                        productName = faker.book().title();
+                        break;
+                    case "Animal":
+                        productName = faker.animal().name();
+                        break;
+                    case "Artist":
+                        productName = faker.artist().name();
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Category type is invalid");
+
+                }
+                product.setName(productName);
                 product.setPrice(faker.number().numberBetween(1, 1000));
                 product.setRate(faker.number().numberBetween(0, 10));
-                category.getProductList().add(product);
+                category.addProduct(product);
+
             }
             store.addCategory(category);
         }
