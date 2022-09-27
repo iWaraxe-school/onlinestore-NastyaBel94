@@ -12,13 +12,14 @@ public abstract class Category {
         this.productList = new ArrayList<>();
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public void addProduct(Product product) {
+        this.productList.add(product);
     }
 
     public String getName() {
         return name;
     }
+
 
     public void print() {
         System.out.println("category name: " + getName());

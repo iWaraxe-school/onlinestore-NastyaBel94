@@ -9,7 +9,7 @@ public class StoreApp {
     public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         Store onlineStore = new Store();
         RandomStorePopulator randomStorePopulator = new RandomStorePopulator();
-        randomStorePopulator.FillStoreRandomly(onlineStore);
+        randomStorePopulator.fillStoreRandomly(onlineStore);
         onlineStore.printAllCategoriesAndProducts();
     }
 }
