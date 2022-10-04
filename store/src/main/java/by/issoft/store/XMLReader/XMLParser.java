@@ -18,6 +18,7 @@ public class XMLParser {
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
 
         xmlReader();
+
     }
 
     public static void xmlReader() throws ParserConfigurationException, SAXException, IOException {

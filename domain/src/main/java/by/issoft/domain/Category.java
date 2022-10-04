@@ -1,7 +1,10 @@
 package by.issoft.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 public abstract class Category {
     private String name;
@@ -20,7 +23,6 @@ public abstract class Category {
         return name;
     }
 
-
     public void print() {
         System.out.println("category name: " + getName());
         System.out.println();
@@ -32,5 +34,14 @@ public abstract class Category {
 
         }
         System.out.println("---");
+    }
+
+    public void sortProducts(Comparator<Product> comparator) {
+        Collections.sort(productList, comparator);
+    }
+
+    //Получение потока продуктов
+    public Stream<Product> getProductStream() {
+        return productList.stream();
     }
 }
