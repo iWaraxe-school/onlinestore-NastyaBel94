@@ -40,8 +40,12 @@ public abstract class Category {
         Collections.sort(productList, comparator);
     }
 
-    //Получение потока продуктов
-    public Stream<Product> getProductStream() {
-        return productList.stream();
+    public List<Product> getProductList() {
+        return productList;
     }
+    //Получение потока продуктов
+   /* public Stream<Product> getProductStream() {
+        return productList.stream();
+    }*/
+
 }

@@ -5,7 +5,7 @@ import by.issoft.domain.Product;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
+
 
 public class Store {
     public List<Category> categoryList = new ArrayList<>();
@@ -20,8 +20,16 @@ public class Store {
         }
     }
 
-    //Объединение всех продуктов и категорий
-    public Stream<Product> getProductStream() {
-        return categoryList.stream().flatMap(c -> c.getProductStream());
+    public List<Category> getCategories() {
+        return categoryList;
     }
+
+    public List<Product> getAllProductsList() {
+        List<Product> allProducts = new ArrayList<>();
+        for (Category category : categoryList) {
+            allProducts.addAll(category.getProductList());
+        }
+        return allProducts;
+    }
+
 }
