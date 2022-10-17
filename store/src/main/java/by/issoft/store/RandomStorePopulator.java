@@ -1,7 +1,6 @@
 package by.issoft.store;
 
-import by.issoft.domain.Category;
-import by.issoft.domain.Product;
+import by.issoft.domain.*;
 import com.github.javafaker.Faker;
 import org.reflections.Reflections;
 
@@ -14,13 +13,15 @@ public class RandomStorePopulator {
 
     private static Faker faker = new Faker();
 
-    public static void fillStoreRandomly(Store store) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public static void fillStoreRandomly() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Reflections reflections = new Reflections("by.issoft.domain");
         Set<Class<?>> subTypes = reflections.get(SubTypes.of(Category.class).asClass());
 
-        for (Class type : subTypes) {
+        CategoryType[] categoryType = CategoryType.values();
+        CategoryFactory factory = new CategoryFactory();
+        for (CategoryType type : categoryType) {
 
-            Category category = (Category) type.getConstructor().newInstance();
+            Categories category = factory.getCategory(type);
 
             for (int i = faker.number().numberBetween(1, 10); i > 0; --i) {
                 Product product = new Product();
@@ -46,7 +47,7 @@ public class RandomStorePopulator {
                 category.addProduct(product);
 
             }
-            store.addCategory(category);
+            Store.getInstance().addCategory(category);
         }
     }
 }

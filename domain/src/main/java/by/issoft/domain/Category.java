@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
-public abstract class Category {
+public abstract class Category implements Categories{
     private String name;
     private List<Product> productList;
 
@@ -36,16 +36,8 @@ public abstract class Category {
         System.out.println("---");
     }
 
-    public void sortProducts(Comparator<Product> comparator) {
-        Collections.sort(productList, comparator);
-    }
-
     public List<Product> getProductList() {
         return productList;
     }
-    //Получение потока продуктов
-   /* public Stream<Product> getProductStream() {
-        return productList.stream();
-    }*/
 
 }

@@ -7,4 +7,5 @@ public class AnimalCategory extends Category {
     public AnimalCategory() {
         super("Animal");
     }
+
 }

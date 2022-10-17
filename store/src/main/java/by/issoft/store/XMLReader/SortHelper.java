@@ -1,6 +1,7 @@
 package by.issoft.store.XMLReader;
 
 
+import by.issoft.domain.Categories;
 import by.issoft.domain.Category;
 import by.issoft.domain.Product;
 import by.issoft.store.Store;
@@ -8,14 +9,14 @@ import by.issoft.store.Store;
 import java.util.*;
 
 public class SortHelper {
-    Store onlineStore;
+    //Store onlineStore;
 
-    public SortHelper(Store onlineStore) {
-        this.onlineStore = onlineStore;
+    public SortHelper() {
+
     }
 
     public List<Product> sortProductList(Map<String, String> sorts) {
-        List<Product> allProductList = onlineStore.getAllProductsList();
+        List<Product> allProductList = Store.getInstance().getAllProductsList();
         List<String> allKeys = new ArrayList<>();
         List<String> allValues = new ArrayList<>();
         for (Map.Entry<String, String> entry : sorts.entrySet()) {
@@ -60,8 +61,8 @@ public class SortHelper {
     }
 
     public void getTop5() {
-        onlineStore.getCategories().stream()
-                .map(Category::getProductList)
+        Store.getInstance().getCategories().stream()
+                .map(Categories::getProductList)
                 .flatMap(Collection::stream)
                 .sorted(Comparator.comparing(Product::getPrice).reversed())
                 .limit(5)
