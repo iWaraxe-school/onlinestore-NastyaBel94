@@ -3,8 +3,7 @@ package by.issoft.consoleApp;
 import by.issoft.domain.Product;
 import by.issoft.store.RandomStorePopulator;
 import by.issoft.store.Store;
-import by.issoft.store.XMLReader.SortHelper;
-import by.issoft.store.XMLReader.XMLParser;
+import by.issoft.store.XMLReader.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,20 +16,27 @@ import java.util.*;
 
 public class StoreApp {
     public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, IOException, ParserConfigurationException, SAXException {
-        Store onlineStore = new Store();
+        //Store onlineStore = new Store();
         RandomStorePopulator randomStorePopulator = new RandomStorePopulator();
-        randomStorePopulator.fillStoreRandomly(onlineStore);
-        SortHelper sortHelper = new SortHelper(onlineStore);
+        randomStorePopulator.fillStoreRandomly();
+        SortHelper sortHelper = new SortHelper();
 
-        onlineStore.printAllCategoriesAndProducts();
+        Store.getInstance().printAllCategoriesAndProducts();
 
+        HandleNonCommand handleNonCommand = new HandleNonCommand();
+        HandleSort handleSort = new HandleSort(handleNonCommand,sortHelper);
+        HandleTop handleTop = new HandleTop(handleSort,sortHelper);
+        HandleQuit handleQuit = new HandleQuit(handleTop);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         boolean value = true;
         while (value) {
             System.out.println("Enter command sort/top/quit:");
             String command = reader.readLine();
             System.out.println("Your command is:" + command);
-            switch (command) {
+
+            handleQuit.handle(command);
+
+            /*switch (command) {
                 case "sort":
                     List<Product> i = sortHelper.sortProductList(XMLParser.xmlReader());
                     sortHelper.printAllProducts(i);
@@ -44,7 +50,7 @@ public class StoreApp {
                     break;
                 default:
                     System.out.println("The command isn't recognized");
-            }
+            }*/
 
         }
 
