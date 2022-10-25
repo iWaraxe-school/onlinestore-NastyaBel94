@@ -4,9 +4,16 @@ import by.issoft.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class Store {
+    //Реализация паттерна Singleton
+    private static Store instance;
+    Timer timer = new Timer();
 
     public List<Categories> categoryList = new ArrayList<>();
 
@@ -14,7 +21,7 @@ public class Store {
         categoryList.add(categories);
     }
 
-   public void printAllCategoriesAndProducts() {
+    public void printAllCategoriesAndProducts() {
         for (Categories categories : categoryList) {
             categories.print();
         }
@@ -31,10 +38,15 @@ public class Store {
         }
         return allProducts;
     }
-//Реализация паттерна Singleton
-    private static Store instance;
 
-    private Store() {}
+
+    private Store() {
+        timer.schedule(new TimerTask() {
+            public void run() {
+                purchasedProducts.clear();
+            }
+        }, 0, 2 * 60 * 1000);
+    }
 
     public static Store getInstance() {
         Store result = instance;
@@ -48,5 +60,21 @@ public class Store {
             return instance;
         }
     }
+
+    CopyOnWriteArrayList<Product> purchasedProducts = new CopyOnWriteArrayList<>();
+
+    public void addToCart(int index) {
+        final List<Product> allProductsList = getAllProductsList();
+        if (index >= 0 && index < allProductsList.size()) {
+            purchasedProducts.add(allProductsList.get(index));
+        } else {
+            System.out.println("Product doesn't exist");
+        }
+
+    }
+
+
+
+
 }
 
