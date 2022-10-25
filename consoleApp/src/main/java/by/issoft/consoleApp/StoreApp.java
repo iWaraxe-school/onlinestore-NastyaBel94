@@ -24,13 +24,14 @@ public class StoreApp {
         Store.getInstance().printAllCategoriesAndProducts();
 
         HandleNonCommand handleNonCommand = new HandleNonCommand();
-        HandleSort handleSort = new HandleSort(handleNonCommand,sortHelper);
-        HandleTop handleTop = new HandleTop(handleSort,sortHelper);
-        HandleQuit handleQuit = new HandleQuit(handleTop);
+        HandleSort handleSort = new HandleSort(handleNonCommand, sortHelper);
+        HandleTop handleTop = new HandleTop(handleSort, sortHelper);
+        HandleCreateOrder handleCreateOrder = new HandleCreateOrder(handleTop);
+        HandleQuit handleQuit = new HandleQuit(handleCreateOrder);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         boolean value = true;
         while (value) {
-            System.out.println("Enter command sort/top/quit:");
+            System.out.println("Enter command sort/top/quit/addToCart:");
             String command = reader.readLine();
             System.out.println("Your command is:" + command);
 
