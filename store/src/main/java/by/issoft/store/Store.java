@@ -40,14 +40,6 @@ public class Store {
     }
 
 
-    private Store() {
-        timer.schedule(new TimerTask() {
-            public void run() {
-                purchasedProducts.clear();
-            }
-        }, 0, 2 * 60 * 1000);
-    }
-
     public static Store getInstance() {
         Store result = instance;
         if (result != null) {
@@ -72,7 +64,9 @@ public class Store {
         }
 
     }
-
+    public void clear() {
+    purchasedProducts.clear();
+    }
 
 
 
