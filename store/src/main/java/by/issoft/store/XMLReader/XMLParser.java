@@ -16,11 +16,11 @@ import java.util.Map;
 
 public class XMLParser {
 
-    public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
+  /*  public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
 
         xmlReader();
 
-    }
+    }*/
 
     public static Map<String, String> xmlReader() throws ParserConfigurationException, SAXException, IOException {
         Map<String, String> sorts = new LinkedHashMap();

@@ -4,6 +4,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class HandleTop implements HandleCommand {
     HandleCommand secondCommand;
@@ -15,7 +16,7 @@ public class HandleTop implements HandleCommand {
     }
 
     @Override
-    public void handle(String command) throws ParserConfigurationException, IOException, SAXException {
+    public void handle(String command) throws ParserConfigurationException, IOException, SAXException, URISyntaxException, InterruptedException {
         if (command.equals("top")) {
             System.out.println("Print top 5 most expensive products sorted by price desc");
             sortHelper.getTop5();
