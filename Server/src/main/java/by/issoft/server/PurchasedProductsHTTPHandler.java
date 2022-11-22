@@ -20,14 +20,16 @@ public class PurchasedProductsHTTPHandler implements HttpHandler {
         JSONArray array = new JSONArray();
         String userId = HTTPHelper.queryToMap(exchange.getRequestURI().getQuery()).get("userid");
 
-        try { Integer integer = Integer.parseInt(userId);
+        try {
+            Integer integer = Integer.parseInt(userId);
             for (Product product : db.getPurchasedProducts(integer)) {
                 JSONObject purchasedProductsJson = new JSONObject();
                 purchasedProductsJson.put("name", product.getName());
                 purchasedProductsJson.put("rate", product.getRate());
                 purchasedProductsJson.put("price", product.getPrice());
+                array.put(purchasedProductsJson);
             }
-            rootObject.put("purchasedProducts",array);
+            rootObject.put("purchasedProducts", array);
 
         } catch (SQLException e) {
             e.printStackTrace();

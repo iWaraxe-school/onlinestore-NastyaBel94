@@ -88,7 +88,8 @@ public class MyClient {
     }
 
     public void addToCart(int productid) throws URISyntaxException, IOException, InterruptedException {
-        JSONObject obj = new JSONObject();
+        HttpClient client = HttpClient.newBuilder().build();
+       /* JSONObject obj = new JSONObject();
         obj.put("userid", userId);
         obj.put("productid", productid);
         String data = obj.toString();
@@ -96,6 +97,11 @@ public class MyClient {
 
         HttpRequest request = HttpRequest.newBuilder(new URI(serverAddress + "/addToCart"))
                 .POST(HttpRequest.BodyPublishers.ofString(data))
+                .build();
+        client.send(request,HttpResponse.BodyHandlers.discarding());*/
+
+        HttpRequest request = HttpRequest.newBuilder(new URI(serverAddress + "/addToCart?userid="+userId+"&productid="+productid))
+                .GET()
                 .build();
         client.send(request,HttpResponse.BodyHandlers.discarding());
 

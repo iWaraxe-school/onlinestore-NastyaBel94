@@ -250,12 +250,6 @@ public class DBHelper {
                     "curdate()" +
                     ")";
             statement.executeUpdate(sqlCommand);
-           /* RESULTSET = statement.executeQuery("INSERT INTO Cart VALUES(" +
-                    userId + "," +
-                    productId + "," +
-                    "curdate()" +
-                    ")");*/
-
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -272,7 +266,7 @@ public class DBHelper {
                     " FROM Products " +
                     "JOIN Cart ON Products.Id = Cart.ProductId " +
                     "WHERE Cart.UserId = " + userId +
-                    " AND TIMEDIFF(curdate(), Cart.TimeStamp) <= '00:02:00' ";
+                    " AND TIMEDIFF(Cart.TimeStamp, CURRENT_TIMESTAMP()) <= '00:02:00' ";
             RESULTSET = statement.executeQuery(sql);
             while (RESULTSET.next()) {
                 Product p = new Product();
