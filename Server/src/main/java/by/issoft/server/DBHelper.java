@@ -241,7 +241,7 @@ public class DBHelper {
     }
 
     //Method addToCart
-    public void addToCart(String userId, String productId) {
+    public void addToCart(Integer userId, Integer productId) {
         connectionToDB();
         try (Statement statement = CONNECTION.createStatement()) {
             String sqlCommand = "INSERT INTO Cart VALUES(" +

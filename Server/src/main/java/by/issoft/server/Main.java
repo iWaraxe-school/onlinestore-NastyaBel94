@@ -6,6 +6,7 @@ import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.charset.Charset;
 import java.sql.SQLException;
 
 public class Main {
@@ -25,8 +26,8 @@ public class Main {
         server.bind(new InetSocketAddress(9002), 0);
         server.createContext("/getCategories", new CategoriesHTTPHandler());
         server.createContext("/getProducts", new ProductsHTTPHandler());
-        server.createContext("/addToCart", new AddToCartHTTPHandler())/*.setAuthenticator(new Authentication())*/;
-        server.createContext("/getPurchasedProducts", new PurchasedProductsHTTPHandler())/*.setAuthenticator(new Authentication())*/;
+        server.createContext("/addToCart", new AddToCartHTTPHandler()).setAuthenticator(new Authentication("cart", Charset.defaultCharset()));
+        server.createContext("/getPurchasedProducts", new PurchasedProductsHTTPHandler()).setAuthenticator(new Authentication("cart", Charset.defaultCharset()));
 
         server.setExecutor(null);
         server.start();

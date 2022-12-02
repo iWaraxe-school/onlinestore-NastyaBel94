@@ -23,12 +23,15 @@ public class HandleAddToCart implements HandleCommand {
 
         if (command.equalsIgnoreCase("addtocart")) {
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("Enter an index of product to order:");
-            String indexString = reader.readLine();
-            int productid = Integer.parseInt(indexString);
-            client.addToCart(productid);
-
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+                System.out.println("Enter an index of product to order:");
+                String indexString = reader.readLine();
+                int productid = Integer.parseInt(indexString);
+                client.addToCart(productid);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 
         } else if (secondCommand != null) {
             secondCommand.handle(command);

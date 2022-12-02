@@ -19,6 +19,7 @@ import java.net.http.HttpResponse;
 import java.nio.ByteBuffer;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Flow;
@@ -30,15 +31,15 @@ public class MyClient {
     private String serverAddress;
     private int userId;
 
-    public MyClient (String serverAddress){
-        while(serverAddress.endsWith("/")){
-            serverAddress = serverAddress.substring(0,serverAddress.length()-1);
+    public MyClient(String serverAddress) {
+        while (serverAddress.endsWith("/")) {
+            serverAddress = serverAddress.substring(0, serverAddress.length() - 1);
         }
         this.serverAddress = serverAddress;
     }
 
-    public void setUserId(int userId){
-     this.userId = userId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public List<Categories> getCategories() throws IOException, InterruptedException, URISyntaxException {
@@ -87,36 +88,36 @@ public class MyClient {
         return listOfProducts;
     }
 
-    public void addToCart(int productid) throws URISyntaxException, IOException, InterruptedException {
+    public void addToCart(int productid) throws Exception {
         HttpClient client = HttpClient.newBuilder().build();
-       /* JSONObject obj = new JSONObject();
+        JSONObject obj = new JSONObject();
         obj.put("userid", userId);
         obj.put("productid", productid);
         String data = obj.toString();
-        HttpClient client = HttpClient.newBuilder().build();
-
         HttpRequest request = HttpRequest.newBuilder(new URI(serverAddress + "/addToCart"))
                 .POST(HttpRequest.BodyPublishers.ofString(data))
+                .header("Authorization", getBasicAuthenticationHeader("nastya1", "1234N"))
                 .build();
-        client.send(request,HttpResponse.BodyHandlers.discarding());*/
+        HttpResponse<Void> response = client.send(request, HttpResponse.BodyHandlers.discarding());
 
-        HttpRequest request = HttpRequest.newBuilder(new URI(serverAddress + "/addToCart?userid="+userId+"&productid="+productid))
-                .GET()
-                .build();
-        client.send(request,HttpResponse.BodyHandlers.discarding());
-
+        if (response.statusCode() == 401) {
+            throw new Exception("Unautorized");
+        }
 
     }
 
-    public List<Product> getPurchasedProducts() throws URISyntaxException, IOException, InterruptedException {
+    public List<Product> getPurchasedProducts() throws Exception {
         HttpClient client = HttpClient.newBuilder()
                 .build();
-        HttpRequest request = HttpRequest.newBuilder(new URI(serverAddress + "/getPurchasedProducts?userid="+userId))
+        HttpRequest request = HttpRequest.newBuilder(new URI(serverAddress + "/getPurchasedProducts?userid=" + userId))
                 .GET()
+                .header("Authorization", getBasicAuthenticationHeader("nastya1", "1234N"))
                 .build();
 
-
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        if (response.statusCode() == 401) {
+            throw new Exception("Unautorized");
+        }
         List<Product> listOfPurchasedProducts = new ArrayList<>();
         JSONObject rootObject = new JSONObject(response.body());
         JSONArray array = rootObject.getJSONArray("purchasedProducts");
@@ -129,5 +130,10 @@ public class MyClient {
             listOfPurchasedProducts.add(purchasedProduct);
         }
         return listOfPurchasedProducts;
+    }
+
+    private static final String getBasicAuthenticationHeader(String username, String password) {
+        String valueToEncode = username + ":" + password;
+        return "Basic " + Base64.getEncoder().encodeToString(valueToEncode.getBytes());
     }
 }
