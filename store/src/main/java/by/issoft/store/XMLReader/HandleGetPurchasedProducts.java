@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
-public class HandleGetPurchasedProducts implements HandleCommand{
+public class HandleGetPurchasedProducts implements HandleCommand {
     HandleCommand secondCommand;
     MyClient client;
 
     public HandleGetPurchasedProducts(MyClient client, HandleCommand secondCommand) {
-        this.client= client;
+        this.client = client;
         this.secondCommand = secondCommand;
     }
 
@@ -22,13 +22,18 @@ public class HandleGetPurchasedProducts implements HandleCommand{
     public void handle(String command) throws ParserConfigurationException, IOException, SAXException, URISyntaxException, InterruptedException {
         if (command.equalsIgnoreCase("getpurchasedproducts")) {
 
-            System.out.println("List of Purchased Products:");
-            List<Product> productList = client.getPurchasedProducts();
-            for (Product products : productList) {
+            try {
+                System.out.println("List of Purchased Products:");
 
-                System.out.println(products.getName());
-                System.out.println(products.getRate());
-                System.out.println(products.getPrice());
+                List<Product> productList = client.getPurchasedProducts();
+                for (Product products : productList) {
+
+                    System.out.println(products.getName());
+                    System.out.println(products.getRate());
+                    System.out.println(products.getPrice());
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         } else if (secondCommand != null) {
             secondCommand.handle(command);
